@@ -1,0 +1,291 @@
+export type Lang = "en" | "el";
+
+// Strip Greek (and any other) combining diacritical marks — used for strings
+// that will be rendered under text-transform: uppercase, where accents must go.
+const d = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+export const translations = {
+  en: {
+    nav: {
+      builds: "Builds",
+      space: "Our Space",
+      about: "About",
+      store: "Merch",
+      faq: "FAQ",
+      buildMeOne: "Build Me One",
+      contact: "Contact",
+    },
+    cart: {
+      title: "Cart",
+      empty: "Your cart is empty.",
+      subtotal: "Subtotal",
+      checkout: "Checkout",
+      remove: "Remove",
+      add: "Add to Cart",
+      added: "Added ✓",
+      processing: "Redirecting…",
+      closed: "The store is currently closed.",
+    },
+    consent: {
+      message:
+        "We use functional storage to remember your cart and language. Checkout (Stripe) and our web fonts (Google) may set their own cookies. Accept to allow these.",
+      accept: "Accept",
+      deny: "Deny",
+    },
+    process: {
+      steps: [
+        {
+          title: "Consultation",
+          body: "Every Cycles Custom Cult build is unique to the rider. We start with your vision, source the right donor, and strip it to the frame — building from the ground up.",
+        },
+        {
+          title: "Build",
+          body: "Engines rebuilt, every nut and bolt sorted. Components sourced from the top shelf. We revive — not just restore — blending our taste with yours.",
+        },
+        {
+          title: "Ride",
+          body: "Built for daily use. The result is a machine that stands out in any crowd and urges you to go farther than you'd expect.",
+        },
+      ],
+    },
+    home: {
+      builds: { kicker: "The Machines", heading: "Featured Builds", cta: "See All Builds" },
+      space: { kicker: "Where It Happens", heading: "Our Space", cta: "Step Inside" },
+      about: {
+        kicker: "The Cult",
+        heading: "Built by hand. Built to ride.",
+        body1: "Cycles Custom Cult is the culmination of an obsession with the machine. We take tired, forgotten bikes and reimagine them as one-of-one rides — modern where it matters, timeless where it counts.",
+        body2: "Add your full story on the About page — this is filler for now.",
+        cta: "Read More",
+      },
+      cta: {
+        line1: "Ready to build",
+        line2: "your dream?",
+        primary: "Build Me One",
+        secondary: "Visit Store",
+      },
+    },
+    buildsPage: {
+      kicker: "The Machines",
+      heading: "Builds",
+      lead: "Four one-of-one machines. Each built for a single rider, to a single brief. Tap in for the full story and spec sheet.",
+    },
+    buildDetail: {
+      gallery: "Gallery",
+      back: "← All Builds",
+      cta: "Build Me One Like This",
+    },
+    spacePage: {
+      kicker: "Where It Happens",
+      heading: "Our Space",
+      lead: "The floor where the machines come to life. Tear-downs, rebuilds, late nights and first starts.",
+      captions: ["The floor", "The scene", "Parts wall", "The bench", "Instruments", "Tear-down bay"] as string[],
+    },
+    aboutPage: {
+      kicker: "The Cult Leader",
+      heading: "About",
+      founderHeading: "Ioannis Marinos",
+      founderRole: "Founder & Head Builder",
+      lead: "Cycles Custom Cult is the culmination of one builder's obsession. Long inspired by the sound, the soul and the sheer pull of a hand-built machine, the shop was founded on a simple idea: revive, don't just restore.",
+      p1: "Every Cycles Custom Cult build begins with a rider's dream. We collaborate with each owner to turn a forgotten donor into a singular, one-of-one motorcycle that stays true to a clear vision.",
+      p2: "Despite countless custom modifications, each machine keeps its character. The end result is a bike rebuilt to modern standards, with performance and reliability that go beyond the original — without surrendering the aesthetic that makes it worth riding.",
+      p3: "In a disposable culture, a decades-old machine becomes a forever ride. Every build is a collaboration between owner and builder, and every build is bespoke.",
+      ctaPrimary: "Build Me One",
+      ctaSecondary: "See The Builds",
+    },
+    faqPage: {
+      kicker: "Questions",
+      heading: "FAQ",
+      stillQuestion: "Still have a question?",
+      getInTouch: "Get In Touch",
+      items: [
+        { q: "How long does a build take?", a: "Every Cycles Custom Cult build is one-of-one. Timelines depend on the donor, the scope, and parts availability. We'll give you a realistic estimate during consultation." },
+        { q: "Do you supply the donor bike, or do I?", a: "Either works. We can source a donor specific to your build, or start from a machine you already own." },
+        { q: "Can I be involved in the design?", a: "Absolutely. Every build is a collaboration. We blend our aesthetic with your personality and riding style." },
+        { q: "Do you ship outside the country?", a: "Yes — we've crated and shipped builds worldwide. Logistics are handled case by case." },
+        { q: "What does a build cost?", a: "It varies wildly with scope. Reach out through Build Me One and we'll talk numbers honestly." },
+      ],
+    },
+    storePage: {
+      kicker: "Goods",
+      heading: "Store",
+      lead: "Wear the cult. Apparel and goods from the shop.",
+      tags: { Apparel: "Apparel", Goods: "Goods" } as Record<string, string>,
+      buy: "Buy",
+      processing: "Redirecting…",
+      error: "Something went wrong. Please try again.",
+      closed: "The store is currently closed. Check back soon.",
+      closedShort: "Closed",
+    },
+    buildFormPage: {
+      kicker: "Start Here",
+      heading: "Build Me One",
+      lead: "Tell us about the machine you've been dreaming about. The more detail the better — donor bike, style, budget, the way you ride. We'll take it from there.",
+      name: "Name", namePlaceholder: "Your name",
+      email: "Email", emailPlaceholder: "you@email.com",
+      phone: "Phone (optional)", phonePlaceholder: "+30 ...",
+      budget: "Budget (optional)", budgetPlaceholder: "Rough range",
+      donor: "Donor bike / starting point", donorPlaceholder: "Bike you own, or leave it to us",
+      messageLabel: "Tell us about the build",
+      messagePlaceholder: "Style, vibe, how you'll ride it, references you love...",
+      send: "Send Email →",
+      sending: "Sending…",
+      success: "Thanks — your enquiry is on its way. We'll be in touch.",
+      error: "Something went wrong. Please try again or email us directly.",
+      required: "Please fill in your name, email and message.",
+    },
+    footer: {
+      store: "Store", contact: "Contact", buildMeOne: "Build Me One",
+      copyright: "One of one, every time.",
+    },
+  },
+
+  el: {
+    // uppercase contexts → d()  |  body/paragraph text → accents kept
+    nav: {
+      builds:     d("Κατασκευές"),
+      space:      d("Ο Χώρος"),
+      about:      d("Σχετικά"),
+      store:      d("Μερτς"),
+      faq:        d("Ερωτήσεις"),
+      buildMeOne: d("Φτιάξε μου ένα"),
+      contact:    d("Επικοινωνία"),
+    },
+    cart: {
+      title: d("Καλάθι"),
+      empty: "Το καλάθι σου είναι άδειο.",
+      subtotal: d("Σύνολο"),
+      checkout: d("Πληρωμή"),
+      remove: d("Αφαίρεση"),
+      add: d("Προσθήκη"),
+      added: d("Προστέθηκε ✓"),
+      processing: d("Ανακατεύθυνση…"),
+      closed: "Το κατάστημα είναι προσωρινά κλειστό.",
+    },
+    consent: {
+      message:
+        "Χρησιμοποιούμε λειτουργική αποθήκευση για να θυμόμαστε το καλάθι και τη γλώσσα σου. Η πληρωμή (Stripe) και οι γραμματοσειρές (Google) ίσως ορίσουν δικά τους cookies. Πάτησε Αποδοχή για να τα επιτρέψεις.",
+      accept: d("Αποδοχή"),
+      deny: d("Άρνηση"),
+    },
+    process: {
+      steps: [
+        {
+          title: d("Συνεννόηση"),
+          body: "Κάθε κατασκευή είναι μοναδική για τον αναβάτη. Ξεκινάμε με το όραμά σου, βρίσκουμε τον κατάλληλο δωρητή και χτίζουμε από μηδέν.",
+        },
+        {
+          title: d("Κατασκευή"),
+          body: "Ανακατασκευή από την αρχή, κάθε μπουλόνι στη θέση του. Εξαρτήματα από τα καλύτερα. Αναβιώνουμε — δεν απλώς αποκαθιστούμε — ανακατεύοντας τη γεύση μας με τη δική σου.",
+        },
+        {
+          title: d("Οδήγηση"),
+          body: "Φτιαγμένο για καθημερινή χρήση. Το αποτέλεσμα είναι μια μηχανή που ξεχωρίζει παντού και σε ωθεί να πας πιο μακριά απ' ό,τι περίμενες.",
+        },
+      ],
+    },
+    home: {
+      builds: {
+        kicker:  d("Τα Μοτόρια"),
+        heading: d("Επιλεγμένες Κατασκευές"),
+        cta:     d("Δες Όλες"),
+      },
+      space: {
+        kicker:  d("Εδώ Γίνεται"),
+        heading: d("Ο Χώρος Μας"),
+        cta:     d("Μπες Μέσα"),
+      },
+      about: {
+        kicker:  d("Η Παρέα"),
+        heading: d("Χτισμένο με τα χέρια. Φτιαγμένο για να οδηγείς."),
+        body1: "Το Cycles Custom Cult είναι το αποκορύφωμα μιας εμμονής με τη μηχανή. Παίρνουμε κουρασμένες, ξεχασμένες μοτοσικλέτες και τις επανασχεδιάζουμε ως μοναδικά — μοντέρνα όπου χρειάζεται, διαχρονικά όπου μετράει.",
+        body2: "Πρόσθεσε την πλήρη ιστορία σου στη σελίδα Σχετικά — αυτό είναι placeholder για τώρα.",
+        cta: d("Διαβάστε Περισσότερα"),
+      },
+      cta: {
+        line1:     d("Έτοιμος να χτίσεις"),
+        line2:     d("το όνειρό σου;"),
+        primary:   d("Φτιάξε μου ένα"),
+        secondary: d("Επισκεφτείτε το Κατάστημα"),
+      },
+    },
+    buildsPage: {
+      kicker:  d("Τα Μοτόρια"),
+      heading: d("Κατασκευές"),
+      lead: "Τέσσερις μοναδικές κατασκευές. Η καθεμία φτιαγμένη για έναν αναβάτη, με ένα σαφές concept. Κλικ για την πλήρη ιστορία και τα τεχνικά χαρακτηριστικά.",
+    },
+    buildDetail: {
+      gallery: d("Γκαλερί"),
+      back:    d("← Όλες οι Κατασκευές"),
+      cta:     d("Φτιάξε μου ένα τέτοιο"),
+    },
+    spacePage: {
+      kicker:  d("Εδώ Γίνεται"),
+      heading: d("Ο Χώρος Μας"),
+      lead: "Το πάτωμα όπου ζωντανεύουν οι μηχανές. Αποσυναρμολογήσεις, ανακατασκευές, αργά βράδια και πρώτες εκκινήσεις.",
+      captions: [
+        d("Το πάτωμα"), d("Η σκηνή"), d("Ο τοίχος"),
+        d("Ο πάγκος"), d("Όργανα"), d("Αποσυναρμολόγηση"),
+      ] as string[],
+    },
+    aboutPage: {
+      kicker:        "The Cult Leader",
+      heading:       d("Σχετικά"),
+      founderHeading: "ΙΩΑΝΝΗΣ ΜΑΡΙΝΟΣ",
+      founderRole:   d("Ιδρυτής & Επικεφαλής Κατασκευαστής"),
+      lead: "Το Cycles Custom Cult είναι το αποκορύφωμα της εμμονής ενός κατασκευαστή. Εμπνευσμένος από τον ήχο, την ψυχή και την έλξη μιας χειροποίητης μηχανής, το εργαστήριο ιδρύθηκε με μια απλή ιδέα: αναβίωση, όχι απλή αποκατάσταση.",
+      p1: "Κάθε κατασκευή ξεκινά από το όνειρο ενός αναβάτη. Συνεργαζόμαστε με κάθε ιδιοκτήτη για να μετατρέψουμε έναν ξεχασμένο δωρητή σε μια μοναδική μοτοσικλέτα που παραμένει πιστή σε ένα ξεκάθαρο όραμα.",
+      p2: "Παρά τις αμέτρητες τροποποιήσεις, κάθε μηχανή κρατά τον χαρακτήρα της. Το αποτέλεσμα είναι ένα δίτροχο ανακατασκευασμένο σε σύγχρονα πρότυπα, με επιδόσεις και αξιοπιστία που ξεπερνούν το πρωτότυπο.",
+      p3: "Σε μια κουλτούρα μιας χρήσης, μια δεκαετίες παλιά μηχανή γίνεται μια αιώνια βόλτα. Κάθε κατασκευή είναι συνεργασία μεταξύ ιδιοκτήτη και κατασκευαστή, και κάθε κατασκευή είναι μοναδική.",
+      ctaPrimary:   d("Φτιάξε μου ένα"),
+      ctaSecondary: d("Δες τις Κατασκευές"),
+    },
+    faqPage: {
+      kicker:        d("Ερωτήσεις"),
+      heading:       d("Συχνές Ερωτήσεις"),
+      stillQuestion: "Έχεις ακόμη ερώτηση;",
+      getInTouch:    d("Επικοινώνησε μαζί μας"),
+      items: [
+        { q: d("Πόσο διαρκεί μια κατασκευή;"), a: "Κάθε κατασκευή είναι μοναδική. Τα χρονοδιαγράμματα εξαρτώνται από τον δωρητή, την έκταση και τη διαθεσιμότητα εξαρτημάτων. Θα σου δώσουμε ρεαλιστική εκτίμηση κατά τη συνεννόηση." },
+        { q: d("Εσείς βρίσκετε τον δωρητή ή τον φέρνω εγώ;"), a: "Και τα δύο λειτουργούν. Μπορούμε να βρούμε δωρητή ειδικά για σένα, ή να ξεκινήσουμε από μηχανή που ήδη έχεις." },
+        { q: d("Μπορώ να συμμετέχω στον σχεδιασμό;"), a: "Απολύτως. Κάθε κατασκευή είναι συνεργασία. Συνδυάζουμε την αισθητική μας με την προσωπικότητα και τον τρόπο οδήγησής σου." },
+        { q: d("Στέλνετε εκτός χώρας;"), a: "Ναι — έχουμε στείλει κατασκευές σε όλο τον κόσμο. Τα logistics αντιμετωπίζονται ανά περίπτωση." },
+        { q: d("Πόσο κοστίζει μια κατασκευή;"), a: "Εξαρτάται πολύ από την έκταση. Επικοινώνησε μέσω του Build Me One και θα μιλήσουμε ειλικρινά για αριθμούς." },
+      ],
+    },
+    storePage: {
+      kicker:  d("Είδη"),
+      heading: d("Κατάστημα"),
+      lead: "Φόρεσε το cult. Ρουχισμός και είδη από το εργαστήριο.",
+      tags: { Apparel: d("Ρουχισμός"), Goods: d("Είδη") } as Record<string, string>,
+      buy: d("Αγορά"),
+      processing: d("Ανακατεύθυνση…"),
+      error: "Κάτι πήγε στραβά. Δοκίμασε ξανά.",
+      closed: "Το κατάστημα είναι προσωρινά κλειστό. Έλα ξανά σύντομα.",
+      closedShort: d("Κλειστό"),
+    },
+    buildFormPage: {
+      kicker:  d("Ξεκίνα Εδώ"),
+      heading: d("Φτιάξε μου ένα"),
+      lead: "Πες μας για τη μηχανή που ονειρεύεσαι. Όσο πιο αναλυτικά τόσο καλύτερα — στυλ, προϋπολογισμός, τρόπος οδήγησης. Εμείς αναλαμβάνουμε από κει και πέρα.",
+      name:         d("Όνομα"),           namePlaceholder: "Το όνομά σου",
+      email:        "Email",             emailPlaceholder: "you@email.com",
+      phone:        d("Τηλέφωνο (προαιρετικό)"), phonePlaceholder: "+30 ...",
+      budget:       d("Προϋπολογισμός (προαιρετικό)"), budgetPlaceholder: "Περίπου",
+      donor:        d("Αφετηρία / δωρητής"), donorPlaceholder: "Μηχανή που έχεις, ή αφήστε το σε εμάς",
+      messageLabel: d("Πες μας για την κατασκευή"),
+      messagePlaceholder: "Στυλ, feeling, πώς θα την οδηγείς, αναφορές που αγαπάς...",
+      send: d("Στείλε Email →"),
+      sending: d("Αποστολή…"),
+      success: "Ευχαριστούμε — το μήνυμά σου στάλθηκε. Θα επικοινωνήσουμε σύντομα.",
+      error: "Κάτι πήγε στραβά. Δοκίμασε ξανά ή στείλε μας email απευθείας.",
+      required: "Συμπλήρωσε όνομα, email και μήνυμα.",
+    },
+    footer: {
+      store:      d("Κατάστημα"),
+      contact:    d("Επικοινωνία"),
+      buildMeOne: d("Φτιάξε μου ένα"),
+      copyright: "Μοναδικό, κάθε φορά.",
+    },
+  },
+};
