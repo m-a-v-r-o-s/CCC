@@ -209,6 +209,6 @@ export const products: Product[] = [
 // -------------------------------------------------------------
 //  CONTACT — set your real email here when ready
 // -------------------------------------------------------------
-export const CONTACT_EMAIL = "youremail@example.com"; // <-- CHANGE THIS
+export const CONTACT_EMAIL = "Ioannismarinos@hotmail.com";
 export const INSTAGRAM = "https://www.instagram.com/cyclescustomcult/";
 export const CARGR_URL = "https://www.car.gr"; // <-- set to your car.gr profile/listing URL

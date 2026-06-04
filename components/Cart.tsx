@@ -53,8 +53,8 @@ export default function Cart() {
 
   return (
     <>
-      <button className="cart-btn" onClick={open} aria-label={`${c.title} (${count})`}>
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <button className={`cart-btn ${count === 0 ? "empty" : ""}`} onClick={open} aria-label={`${c.title} (${count})`}>
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M3 4h2l2.4 12.2a1 1 0 0 0 1 .8h8.2a1 1 0 0 0 1-.8L21 8H6" />
           <circle cx="9.5" cy="20" r="1.2" />
           <circle cx="17" cy="20" r="1.2" />

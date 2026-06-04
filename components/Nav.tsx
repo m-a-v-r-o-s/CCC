@@ -51,34 +51,36 @@ export default function Nav() {
             <Link href="/build" onClick={() => setOpen(false)}>
               {t.nav.buildMeOne}
             </Link>
-            <a
-              href={INSTAGRAM}
-              target="_blank"
-              rel="noreferrer"
-              className="ig-link"
-              onClick={() => setOpen(false)}
-            >
-              <img src="/images/ig.webp" alt="Instagram" className="ig-logo" />
-              <span className="ig-text">Instagram</span>
-            </a>
-            <a
-              href={CARGR_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="cargr-link"
-              onClick={() => setOpen(false)}
-            >
-              {cargrLogoOk ? (
-                <img
-                  src="/images/car.webp"
-                  alt="car.gr"
-                  className="cargr-logo"
-                  onError={() => setCargrLogoOk(false)}
-                />
-              ) : (
-                <span className="cargr-text">car.gr</span>
-              )}
-            </a>
+            <div className="nav-social">
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noreferrer"
+                className="ig-link"
+                onClick={() => setOpen(false)}
+              >
+                <img src="/images/ig.webp" alt="Instagram" className="ig-logo" />
+                <span className="ig-text">Instagram</span>
+              </a>
+              <a
+                href={CARGR_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="cargr-link"
+                onClick={() => setOpen(false)}
+              >
+                {cargrLogoOk ? (
+                  <img
+                    src="/images/car.webp"
+                    alt="car.gr"
+                    className="cargr-logo"
+                    onError={() => setCargrLogoOk(false)}
+                  />
+                ) : (
+                  <span className="cargr-text">car.gr</span>
+                )}
+              </a>
+            </div>
           </nav>
         </div>
 

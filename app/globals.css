@@ -92,15 +92,14 @@ p { line-height: 1.7; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(243, 241, 236, 0.86);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  background: var(--ink);
+  color: var(--bone);
 }
 .nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 76px;
+  height: 100px;
 }
 .brand { display: flex; align-items: center; gap: 0.8rem; }
 .brand-logo { transform: scale(0.35); transform-origin: center; }
@@ -137,9 +136,11 @@ p { line-height: 1.7; }
 }
 .nav-links a::after {
   content: ""; position: absolute; left: 0; bottom: 0;
-  width: 0; height: 2px; background: var(--ink); transition: width 0.25s;
+  width: 0; height: 2px; background: var(--bone); transition: width 0.25s;
 }
 .nav-links a:hover::after { width: 100%; }
+/* Desktop: wrapper is invisible to layout, so IG + car.gr stay direct nav items. */
+.nav-social { display: contents; }
 .cargr-link, .ig-link { display: inline-flex; align-items: center; flex-shrink: 0; }
 .cargr-link::after, .ig-link::after { display: none; }
 .cargr-logo, .ig-logo { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1); }
@@ -162,7 +163,7 @@ p { line-height: 1.7; }
 }
 .nav-links[data-lang="el"] a { font-weight: 700; letter-spacing: 0.01em; font-size: 1rem; white-space: nowrap; }
 .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 30px; height: 30px; padding: 0; background: none; border: none; cursor: pointer; }
-.nav-toggle span { display: block; width: 26px; height: 2px; background: var(--ink); transition: transform 0.3s ease, opacity 0.2s ease; }
+.nav-toggle span { display: block; width: 26px; height: 2px; background: var(--bone); transition: transform 0.3s ease, opacity 0.2s ease; }
 .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -204,6 +205,7 @@ p { line-height: 1.7; }
 .cart-btn {
   order: 0;
   margin-left: auto;
+  margin-right: 14px;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -211,7 +213,7 @@ p { line-height: 1.7; }
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--ink);
+  color: var(--bone);
   padding: 6px;
 }
 .cart-count {
@@ -222,8 +224,8 @@ p { line-height: 1.7; }
   height: 17px;
   padding: 0 4px;
   border-radius: 9px;
-  background: var(--ink);
-  color: var(--bone);
+  background: #fff;
+  color: var(--ink);
   font-family: var(--body);
   font-size: 0.66rem;
   font-weight: 700;
@@ -270,7 +272,7 @@ p { line-height: 1.7; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  height: calc(100vh - 76px);
+  height: calc(100vh - 100px);
   min-height: 560px;
   text-align: center;
   background: var(--ink);
@@ -575,6 +577,9 @@ p { line-height: 1.7; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
+  /* Bar grows to sit behind the whole logo; hero adjusts to the taller bar. */
+  .nav-inner { height: 100px; }
+  .hero { height: calc(100vh - 100px); }
   .hero-bg { background-position: 72% top; }
   .hero-content {
     left: 50%; top: 42%; width: min(86vw, 480px); transform: translate(-50%, -50%);
@@ -599,16 +604,20 @@ p { line-height: 1.7; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; align-items: flex-start; text-align: left;
-    position: absolute; top: 76px; left: 0; right: 0;
+    position: absolute; top: 100px; left: 0; right: 0;
     background: var(--bone); border-bottom: 1px solid var(--line); padding: 24px 28px; gap: 18px;
+    color: var(--ink);
   }
+  .nav-links.open a::after { background: var(--ink); }
   .nav-toggle { display: flex; }
-  .ig-logo { display: none; }
-  .ig-text { display: inline; }
+  /* car.gr (left) + Instagram logo (right) on one row in the dropdown */
+  .nav-social { display: flex; flex-direction: row-reverse; align-items: center; gap: 18px; }
+  .ig-logo { display: block; height: 2.4rem; }
+  .ig-text { display: none; }
   .nav-left { order: 0; margin-left: auto; }
   .cart-btn { order: 0; margin-left: 14px; }
-  .brand { position: absolute; left: 50%; transform: translateX(-50%); }
-  .brand-logo { transform: translateY(62px) scale(0.45); transform-origin: center top; }
+  .brand { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .brand-logo { transform: scale(0.45); transform-origin: center; }
 }
 @media (max-width: 560px) {
   .process, .space-grid, .store-grid { grid-template-columns: 1fr; }
