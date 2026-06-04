@@ -20,14 +20,15 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   background: var(--bone);
   color: var(--ink);
   font-family: var(--body);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 /* subtle paper grain overlay */
@@ -102,7 +103,7 @@ p { line-height: 1.7; }
   height: 76px;
 }
 .brand { display: flex; align-items: center; gap: 0.8rem; }
-.brand-logo { transform: translateY(92px) scale(0.533); transform-origin: center top; }
+.brand-logo { transform: scale(0.35); transform-origin: center; }
 .brand-logo img { transition: transform 0.35s ease; }
 .brand:hover .brand-logo img { transform: translateY(7px) scale(1.08); }
 .brand-badge {
@@ -139,7 +140,7 @@ p { line-height: 1.7; }
   width: 0; height: 2px; background: var(--ink); transition: width 0.25s;
 }
 .nav-links a:hover::after { width: 100%; }
-.cargr-link, .ig-link { display: inline-flex; align-items: center; }
+.cargr-link, .ig-link { display: inline-flex; align-items: center; flex-shrink: 0; }
 .cargr-link::after, .ig-link::after { display: none; }
 .cargr-logo, .ig-logo { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1); }
 .cargr-link:hover .cargr-logo { transform: scale(1.12); }
@@ -153,6 +154,11 @@ p { line-height: 1.7; }
   letter-spacing: 0.02em;
   font-size: 1.05rem;
   font-weight: 700;
+}
+/* IG / car.gr never compress; on cramped desktop widths they hide entirely
+   (kept in the mobile dropdown, which is ≤900px). */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .ig-link, .cargr-link { display: none; }
 }
 .nav-links[data-lang="el"] a { font-weight: 700; letter-spacing: 0.01em; font-size: 1rem; white-space: nowrap; }
 .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 30px; height: 30px; padding: 0; background: none; border: none; cursor: pointer; }
@@ -270,69 +276,19 @@ p { line-height: 1.7; }
   background: var(--ink);
   color: var(--bone);
   overflow: hidden;
+  container-type: inline-size; /* so the hero text below can use cqw locked to the hero width */
 }
 
-/* The stage has the EXACT aspect ratio of the background image and is sized to
-   cover the hero. Because every overlay below is a child positioned in container
-   units (cqw) / %, they map to fixed points on the image and stay locked to it
-   at any resolution — the image and overlays crop/scale together. */
-.hero-stage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  aspect-ratio: 1466 / 1073;
-  container-type: inline-size;
-  width: 100%;      /* viewport wider than image → width-driven cover */
-  height: auto;
-}
-@media (max-aspect-ratio: 1466 / 1073) {
-  .hero-stage { width: auto; height: 100%; }   /* taller viewport → height-driven cover */
-}
-
+/* Plain full-bleed background, anchored to the image's top-left so the printed
+   plate always sits in the top-left with a bit of margin, at any aspect ratio. */
 .hero-bg {
   position: absolute; inset: 0;
-  background-size: 100% 100%;   /* stage already matches image aspect → no distortion */
-  opacity: 0.5;
+  background-size: cover;
+  background-position: left 14%;
 }
-
-/* Plate overlay, sitting exactly on the plate printed in the background. */
-.hero-plate {
-  position: absolute;
-  z-index: 1;
-  left: 27%;
-  top: 32%;
-  width: 24cqw;
-  aspect-ratio: 351 / 284;
-  transform: translate(calc(-50% - 6px), calc(-50% + 4px)) rotate(-0.8deg);
-  transform-origin: center top;
-  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1), filter 0.45s ease;
-  filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
-  cursor: pointer;
-  will-change: transform;
-}
-/* Two stacked faces that cross-fade on hover. */
-.plate-face {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.45s ease;
-}
-/* plate.webp is not shown — the bg already has it printed. The .hero-plate box
-   stays as the (invisible) hover target so ccc.webp can animate in on hover. */
-.plate-rest { display: none; }
-.plate-hover {
-  object-fit: contain;
-  opacity: 0;
-  transform: rotate(-14.2deg); /* constant; net tilt = container rotation − 14.2°
-                                  → starts at −15° (anti-clockwise), ends straight */
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
-}
-.hero-plate:hover .plate-hover { opacity: 1; transform: translate(-10px, -15px) rotate(-14.2deg) scale(1.15); }
-.hero-plate:hover {
-  transform: translate(calc(-50% + 75px), calc(-50% - 6px)) rotate(14.2deg) scale(1.55);
-  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.55));
+/* Ultrawide crops more vertically — lower the plate a touch. */
+@media (min-aspect-ratio: 2 / 1) {
+  .hero-bg { background-position: left 24%; }
 }
 
 .hero-content {
@@ -378,20 +334,46 @@ p { line-height: 1.7; }
   animation: bob 2s ease-in-out infinite;
 }
 @keyframes bob { 0%,100%{transform:translate(-50%,0)} 50%{transform:translate(-50%,8px)} }
+/* Gentle continuous float for the mobile hero logo (keeps the scale). */
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1.9); }
+  50%      { transform: translateY(-7px) rotate(-1.2deg) scale(1.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-mark { animation: none !important; }
+}
 
 /* Desktop: positions/sizes in cqw so the text locks to the background image.
    "Est." nudged up-left a line; tagline on one line, dropped ~10 lines. */
 @media (min-width: 901px) {
+  /* Text anchored to the hero (not the image), so it stays visible at any aspect
+     ratio while the background shows its top. */
+  .hero-content {
+    top: auto;
+    bottom: 12%;
+    left: 6%;
+    width: auto;
+    transform: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.4rem;
+  }
+  .hero-content > :nth-child(2) { display: none; }       /* logo mask — mobile only */
+  .hero-content > :nth-child(3) { order: 1; }            /* Roadworthy on top */
+  .hero-content > :nth-child(1) { order: 2; margin-left: 4cqw; } /* Est below, indented */
   .hero .kicker {
     display: inline-block;
     font-size: 1.05cqw;
-    transform: translate(-8cqw, 27.5cqw);
+    transform: none;
+    white-space: nowrap;
   }
   .hero .sub {
     display: inline-block;
     white-space: nowrap;
-    font-size: 1.42cqw;
-    transform: translateY(20.5cqw);
+    font-size: 1.6cqw;
+    transform: none;
   }
 }
 
@@ -593,8 +575,7 @@ p { line-height: 1.7; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .hero-stage { position: absolute; inset: 0; width: 100%; height: 100%; transform: none; aspect-ratio: auto; }
-  .hero-bg { background-size: cover; background-position: 72% top; }
+  .hero-bg { background-position: 72% top; }
   .hero-content {
     left: 50%; top: 42%; width: min(86vw, 480px); transform: translate(-50%, -50%);
     display: flex; flex-direction: column; align-items: center;
@@ -606,8 +587,7 @@ p { line-height: 1.7; }
   .hero .kicker { transform: none; font-size: clamp(0.78rem, 1.68vw, 1.26rem); }
   .hero .sub { transform: none; white-space: normal; font-size: clamp(0.78rem, 1.68vw, 1.26rem); }
   .hero-title { display: block; }
-  .hero-logo-mark { transform: scale(1.9); }
-  .hero-plate { display: none; }
+  .hero-logo-mark { transform: scale(1.9); animation: logo-float 6s ease-in-out infinite; }
   .process, .space-grid, .store-grid { grid-template-columns: 1fr 1fr; }
   .process .cell .txt { min-height: 11rem; }
   .builds-grid { grid-template-columns: 1fr; }
@@ -628,7 +608,7 @@ p { line-height: 1.7; }
   .nav-left { order: 0; margin-left: auto; }
   .cart-btn { order: 0; margin-left: 14px; }
   .brand { position: absolute; left: 50%; transform: translateX(-50%); }
-  .brand-logo { transform: translateY(63px) scale(0.63); }
+  .brand-logo { transform: translateY(62px) scale(0.45); transform-origin: center top; }
 }
 @media (max-width: 560px) {
   .process, .space-grid, .store-grid { grid-template-columns: 1fr; }

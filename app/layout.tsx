@@ -7,9 +7,12 @@ import { CartProvider } from "@/components/CartContext";
 import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
-  title: "Cycles Custom Cult — One-of-One Custom Motorcycles",
+  title: "CCC",
   description:
     "Cycles Custom Cult builds bespoke custom motorcycles. Every machine is one of one — handbuilt, rider-specific, and built to ride.",
+  icons: {
+    icon: "/images/favicon.ico",
+  },
   openGraph: {
     title: "Cycles Custom Cult",
     description: "One-of-one custom motorcycles, handbuilt.",

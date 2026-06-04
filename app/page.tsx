@@ -22,25 +22,19 @@ export default function Home() {
     <>
       {/* HERO — not translated */}
       <section className="hero">
-        <div className="hero-stage">
-          <div className="hero-bg" style={bg("/images/backg22.webp")} />
-          <div className="hero-plate" aria-hidden="true">
-            <img className="plate-face plate-rest" src="/images/plate.webp" alt="" />
-            <img className="plate-face plate-hover" src="/ccc.webp" alt="" />
-          </div>
-          <div className="hero-content">
-            <Reveal>
-              <span className="kicker" style={{ color: "#fff" }}>Est. — 2019</span>
-            </Reveal>
-            <Reveal delay={120}>
-              <h1 className="hero-title" aria-label="Cycles Custom Cult">
-                <span className="hero-logo-mark" />
-              </h1>
-            </Reveal>
-            <Reveal delay={240}>
-              <p className="sub">Roadworthy, handmade, homemade, motorbikes in athens, greece</p>
-            </Reveal>
-          </div>
+        <div className="hero-bg" style={bg("/images/backg22.webp")} />
+        <div className="hero-content">
+          <Reveal>
+            <span className="kicker" style={{ color: "#fff" }}>Est. — 2019</span>
+          </Reveal>
+          <Reveal delay={120}>
+            <h1 className="hero-title" aria-label="Cycles Custom Cult">
+              <span className="hero-logo-mark" />
+            </h1>
+          </Reveal>
+          <Reveal delay={240}>
+            <p className="sub">Roadworthy, handmade, homemade, motorbikes in athens, greece</p>
+          </Reveal>
         </div>
         <a href="#process" className="scroll-cue">Scroll</a>
       </section>
